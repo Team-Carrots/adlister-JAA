@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/adlister-JAA.iml" filepath="$PROJECT_DIR$/adlister-JAA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adlister.iml" filepath="$PROJECT_DIR$/adlister.iml" />
     </modules>
   </component>
 </project>
