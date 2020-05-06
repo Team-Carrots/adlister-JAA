@@ -34,6 +34,8 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+
+
     @Override
     public Long insert(User user) {
         String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
@@ -49,6 +51,22 @@ public class MySQLUsersDao implements Users {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating new user", e);
         }
+    }
+
+    @Override
+    public Object findUserByAdId(String adId) {
+            String query = "SELECT * FROM ads " +
+                    "WHERE id = ? IN (" +
+                    "SELECT username " +
+                    "FROM users)";
+        try {
+                PreparedStatement stmt = connection.prepareStatement(query);
+                stmt.setString(1, String.valueOf(adId));
+        System.out.println(extractUser(stmt.executeQuery()));
+                return extractUser(stmt.executeQuery());
+            } catch (SQLException e) {
+                throw new RuntimeException("Error finding a user by username", e);
+            }
     }
 
     private User extractUser(ResultSet rs) throws SQLException {

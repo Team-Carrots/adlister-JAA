@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     .search{
-        margin-top: 6px;
+        margin-top: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -11,8 +11,8 @@
     .adsContainer{
         padding: 0px;
         background: cadetblue;
-        height: 200px;
-        width: 100px;
+        height: 300px;
+        width: 200px;
     }
     .adHeader{
         padding: 4px;

@@ -9,6 +9,8 @@
                 <input type = "submit" value = "Submit" />
             </form></li>
             <li><a href="/register">Register</a></li>
+            <li><a href="/adPage">AdShow</a></li>
+
             <li><a href="/login">Login</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>

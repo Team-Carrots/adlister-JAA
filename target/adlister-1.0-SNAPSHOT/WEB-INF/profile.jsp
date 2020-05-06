@@ -9,9 +9,15 @@
     <jsp:include page="//WEB-INF/partials/navbar.jsp" />
 
 
+
     <div class="container">
         <h1>Welcome, ${sessionScope.user.username}!</h1>
     </div>
+    <h2>Create a new ad?</h2>
+    <ul>
+        <li><a href="/ads/create">Create New Add</a></li>
+    </ul>
+
 
 </body>
 </html>
