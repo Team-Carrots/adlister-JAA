@@ -58,6 +58,7 @@ public class MySQLAdsDao implements Ads {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, adId);
+            System.out.println("Ad " + extractAd(stmt.executeQuery()));
             return extractAd(stmt.executeQuery());
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving selected ad.", e);

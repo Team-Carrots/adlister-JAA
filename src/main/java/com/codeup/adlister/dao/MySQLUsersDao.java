@@ -12,9 +12,9 @@ public class MySQLUsersDao implements Users {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUser(),
-                config.getPassword()
+                    config.getUrl(),
+                    config.getUser(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -33,7 +33,6 @@ public class MySQLUsersDao implements Users {
             throw new RuntimeException("Error finding a user by username", e);
         }
     }
-
 
 
     @Override
@@ -55,29 +54,29 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public Object findUserByAdId(String adId) {
-            String query = "SELECT * FROM ads " +
-                    "WHERE id = ? IN (" +
-                    "SELECT username " +
-                    "FROM users)";
+        String query = "SELECT username " +
+                "FROM users " +
+                "JOIN ads on users.id = ads.user_id " +
+                "WHERE ads.id = ?";
         try {
-                PreparedStatement stmt = connection.prepareStatement(query);
-                stmt.setString(1, String.valueOf(adId));
-        System.out.println(extractUser(stmt.executeQuery()));
-                return extractUser(stmt.executeQuery());
-            } catch (SQLException e) {
-                throw new RuntimeException("Error finding a user by username", e);
-            }
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, Long.parseLong(adId));
+            System.out.println("User " + extractUser(stmt.executeQuery()));
+            return stmt.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a user by userId", e);
+        }
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
-        if (! rs.next()) {
+        if (!rs.next()) {
             return null;
         }
         return new User(
-            rs.getLong("id"),
-            rs.getString("username"),
-            rs.getString("email"),
-            rs.getString("password")
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password")
         );
     }
 
