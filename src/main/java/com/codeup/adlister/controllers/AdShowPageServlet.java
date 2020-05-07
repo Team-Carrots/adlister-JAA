@@ -21,9 +21,9 @@ public class AdShowPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String adId = request.getParameter("adId");
         request.setAttribute("oneAd", DaoFactory.getAdsDao().oneAd(adId));
-        request.setAttribute("UserAd", DaoFactory.getUsersDao().findUserByAdId(adId));
+        request.setAttribute("userAd", DaoFactory.getUsersDao().findUserByAdId(adId));
         request.getRequestDispatcher("/WEB-INF/ads/ad-show-page.jsp").forward(request, response);
-
-
     }
 }
+
+

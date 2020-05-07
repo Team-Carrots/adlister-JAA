@@ -15,6 +15,8 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
+
+
     public Long insert(Ad ad) {
         // make sure we have ads
         if (ads == null) {
@@ -33,6 +35,11 @@ public class ListAdsDao implements Ads {
             ads = generateAds();
         }
         return (Ad) ads;
+    }
+
+    @Override
+    public Ad getById(Long id) {
+        return ads.get(Math.toIntExact(id));
     }
 
     private List<Ad> generateAds() {

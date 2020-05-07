@@ -1,9 +1,12 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQLUsersDao implements Users {
     private Connection connection;
@@ -54,15 +57,17 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public Object findUserByAdId(String adId) {
-        String query = "SELECT username " +
-                "FROM users " +
-                "JOIN ads on users.id = ads.user_id " +
-                "WHERE ads.id = ?";
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt = connection.prepareStatement("SELECT username " +
+                    "FROM users " +
+                    "JOIN ads on users.id = ads.user_id " +
+                    "WHERE ads.id = ?");
             stmt.setLong(1, Long.parseLong(adId));
             System.out.println("User " + extractUser(stmt.executeQuery()));
-            return stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return extractUser(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error finding a user by userId", e);
         }
@@ -79,5 +84,6 @@ public class MySQLUsersDao implements Users {
                 rs.getString("password")
         );
     }
-
 }
+
+

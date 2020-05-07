@@ -1,8 +1,12 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.dao.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,22 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    public Ad getById(Long id) {
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM ads where id = ?");
+            stmt.setLong(1,id);
+            ResultSet rs = stmt.executeQuery();
+//            rs.next();
+//            return extractAd(rs);
+            return createAdsFromResults(rs).get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving ad id=" +id, e);
+        }
+
+    }
+
+    @Override
     public Long insert(Ad ad) {
         try {
             String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
@@ -52,6 +72,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
     @Override
     public Ad oneAd(String adId) {
         String sql = "SELECT * FROM ads WHERE id = ? LIMIT 1";
@@ -64,6 +85,8 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving selected ad.", e);
         }
     }
+
+
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         if (!rs.next())

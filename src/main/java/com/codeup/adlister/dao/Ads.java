@@ -11,4 +11,7 @@ public interface Ads {
     Long insert(Ad ad);
     // show one ad based on id of selected ad
     Object oneAd(String adId);
+    // show one ad based on id of selected ad
+    Ad getById(Long id);
+
 }

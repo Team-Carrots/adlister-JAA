@@ -5,7 +5,7 @@
             <a class="navbar-brand" href="/ads">Adlister</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><form action = "adsIndex.jsp" class="search" method = "GET"><input type = "text" name = "search">
+            <li><form action = "adsIndex.jsp" class="search" method = "POST"><input type = "text" name = "search">
                 <input type = "submit" value = "Submit" />
             </form></li>
             <li><a href="/register">Register</a></li>
