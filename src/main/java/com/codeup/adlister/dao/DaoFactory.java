@@ -1,12 +1,11 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.models.AdImage;
 
 public class DaoFactory {
     private static Ads adsDao;
     private static Users usersDao;
-    private static Config config = new Config();
     private static AdImages adImagesDao;
+    private static Config config = new Config();
 
     public static Ads getAdsDao() {
         if (adsDao == null) {
@@ -14,13 +13,6 @@ public class DaoFactory {
         }
         return adsDao;
     }
-
-//    public static Ads oneAd() {
-//        if (adsDao == null) {
-//            adsDao = new MySQLAdsDao(config);
-//        }
-//        return adsDao;
-//    }
 
     public static Users getUsersDao() {
         if (usersDao == null) {
@@ -34,6 +26,20 @@ public class DaoFactory {
             adImagesDao = new MySQLAdImagesDao(config);
         }
         return adImagesDao;
-
     }
+
+//    public static Ads searchAdsDao(){
+//        if (searchAdsDao == null) {
+//            searchAdsDao = new MySQLAdsDao(config);
+//        }
+//        return searchAdsDao;
+//    }
+
+
+//    public static Ads oneAd() {
+////        if (adsDao == null) {
+////            adsDao = new MySQLAdsDao(config);
+////        }
+////        return adsDao;
+////    }
 }

@@ -30,17 +30,22 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public Ad oneAd(String adId) {
+    public Ad oneAd(long adId) {
         if (ads == null) {
             ads = generateAds();
         }
         return (Ad) ads;
     }
 
-    @Override
-    public Ad getById(Long id) {
-        return ads.get(Math.toIntExact(id));
-    }
+//    @Override
+//    public Ad getById(Long id) {
+//        return ads.get(Math.toIntExact(id));
+//    }
+
+//    @Override
+//    public Ad searchByKeyword(String search) {
+//        return null;
+//    }
 
     private List<Ad> generateAds() {
         List<Ad> ads = new ArrayList<>();

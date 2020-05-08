@@ -56,20 +56,19 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
-    public Object findUserByAdId(String adId) {
+    public User findUserByAdId(String IdStr) {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT username " +
+            stmt = connection.prepareStatement("SELECT * " +
                     "FROM users " +
                     "JOIN ads on users.id = ads.user_id " +
-                    "WHERE ads.id = ?");
-            stmt.setLong(1, Long.parseLong(adId));
-            System.out.println("User " + extractUser(stmt.executeQuery()));
+                    "WHERE ads.id = ?", Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, Long.parseLong(IdStr));
             ResultSet rs = stmt.executeQuery();
-            rs.next();
-            return extractUser(rs);
+            User test = extractUser(rs);
+            return test;
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding a user by userId", e);
+            throw new RuntimeException("Error finding a user by userId " +IdStr, e);
         }
     }
 

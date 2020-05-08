@@ -17,7 +17,7 @@
 <jsp:include page="//WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Are you interested in this item from ${userAd.username}</h1>
+    <h1>Are you interested in this item from ${userId.username}</h1>
     <br>
     <br>
     <div class="adsContainer">

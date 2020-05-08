@@ -14,7 +14,7 @@
     <br>
     <c:forEach var="ad" items="${ads}">
         <div class="adsContainer">
-            <form action="adPage" method="post">
+            <form action="/adPage" method="post">
                 <button type="submit" class="btn-link">
             <input style="display: none" name="adId" value=${ad.id}>
                     <h2 class="adHeader">${ad.title}</h2>

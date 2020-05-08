@@ -1,12 +1,8 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.dao.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,21 +35,24 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public Ad getById(Long id) {
+
+
+
+    public Ad searchByKeyword(String search) {
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement("SELECT * FROM ads where id = ?");
-            stmt.setLong(1,id);
+            stmt.setString(1,search);
             ResultSet rs = stmt.executeQuery();
-//            rs.next();
-//            return extractAd(rs);
             return createAdsFromResults(rs).get(0);
         } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving ad id=" +id, e);
+            throw new RuntimeException("Error retrieving ad id=" + search , e);
         }
-
     }
+
+
+
+
 
     @Override
     public Long insert(Ad ad) {
@@ -73,14 +72,30 @@ public class MySQLAdsDao implements Ads {
     }
 
 
+
+//    @Override
+//    public Ad getById(Long id) {
+////        PreparedStatement stmt = null;
+//        try {
+//            stmt = connection.prepareStatement("SELECT * FROM ads WHERE id = ?");
+//            stmt.setLong(1,id);
+//            ResultSet rs = stmt.executeQuery();
+//            rs.next();
+//            return extractAd(rs);
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error retrieving the ad." +id, e);
+//        }
+//    }
+
     @Override
-    public Ad oneAd(String adId) {
+    public Ad oneAd(long adId) {
         String sql = "SELECT * FROM ads WHERE id = ? LIMIT 1";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, adId);
-            System.out.println("Ad " + extractAd(stmt.executeQuery()));
-            return extractAd(stmt.executeQuery());
+            stmt.setLong(1, adId);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return extractAd(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving selected ad.", e);
         }
@@ -89,8 +104,6 @@ public class MySQLAdsDao implements Ads {
 
 
     private Ad extractAd(ResultSet rs) throws SQLException {
-        if (!rs.next())
-            return null;
         return new Ad(
                 rs.getLong("id"),
                 rs.getLong("user_id"),

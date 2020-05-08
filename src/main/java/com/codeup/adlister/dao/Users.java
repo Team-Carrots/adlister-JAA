@@ -8,5 +8,5 @@ public interface Users {
     User findByUsername(String username);
     Long insert(User user);
 
-    Object findUserByAdId(String adId);
+    User findUserByAdId(String IdStr);
 }
