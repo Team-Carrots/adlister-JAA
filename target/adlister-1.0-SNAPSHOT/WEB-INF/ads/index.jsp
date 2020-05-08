@@ -12,8 +12,9 @@
 <div class="container">
     <h1>HERE ARE ALL THE ADS!</h1>
     <br>
-    <c:forEach var="ad" items="${ads}">
         <div class="adsContainer">
+    <c:forEach var="ad" items="${ads}">
+        <div class="adsBox">
             <form action="/adPage" method="post">
                 <button type="submit" class="btn-link">
             <input style="display: none" name="adId" value=${ad.id}>
@@ -23,6 +24,7 @@
             </form>
         </div>
     </c:forEach>
+        </div>
 </div>
 
 </body>
